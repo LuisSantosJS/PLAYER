@@ -92,7 +92,6 @@ const Player: React.FC<PlayerProps> = (props) => {
       volume.addEventListener("input", updateVolume);
       volumeButton.addEventListener("click", toggleMute);
       document.addEventListener("keyup", keyboardShortcuts);
-      console.log(video.metadata);
     }
   }, [video, currentCount]);
 
@@ -289,7 +288,7 @@ const Player: React.FC<PlayerProps> = (props) => {
           poster={props?.thumbnail}
           controlsList="nodownload nofullscreen"
         >
-          <source onLoad={initializeVideo} src={props.src} type="video/mp4"></source>
+          <source  src={props.src} type="video/mp4"></source>
         </video>
         <div className={textClassName[currentCount]}>
           {props?.textAdvertisement || "Advertisement"}
