@@ -186,7 +186,9 @@
   }
   
   .fullscreen-button {
+    display: none;
     margin-right: 0;
+
   }
   
   .pip-button svg {
@@ -312,7 +314,7 @@
     top: 110px;
     font-size: 14px;
     font-weight: 700;
-    z-index: 9999 !important;
+    z-index: 999999999999 !important;
   }
   
   
@@ -326,7 +328,7 @@
     bottom: 110px;
     font-size: 14px;
     font-weight: 700;
-    z-index: 9999 !important;
+    z-index: 999999999999 !important;
   }
   
   .advertisementrighttop {
@@ -339,7 +341,7 @@
     top: 110px;
     font-size: 14px;
     font-weight: 700;
-    z-index: 9999 !important;
+    z-index: 999999999999 !important;
   }
   
   
@@ -353,7 +355,7 @@
     bottom: 110px;
     font-size: 14px;
     font-weight: 700;
-    z-index: 9999 !important;
+    z-index: 999999999999 !important;
   }
 
   .displaynone{

@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
        
       </Head>
-      <Script src="/scripts/script.js"></Script>
+    
       <Component {...pageProps} />
     </>
   );
