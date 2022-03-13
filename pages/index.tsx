@@ -7,7 +7,7 @@ const Home: NextPage = () => {
       <div className="container">
         <Player
           textAdvertisement="Will fresco"
-          thumbnail="https://storage.googleapis.com/media-session/caminandes/short.mp4#t=90"
+          thumbnail="https://im2.ezgif.com/tmp/ezgif-2-15d7f72170-jpg/ezgif-frame-028.jpg"
           src="https://storage.googleapis.com/media-session/caminandes/short.mp4#t=88"
         />
       </div>
