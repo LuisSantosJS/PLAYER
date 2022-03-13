@@ -284,6 +284,7 @@ const Player: React.FC<PlayerProps> = (props) => {
           id="video"
           preload="metadata"
           controls={false}
+          webkit-playsInline playsInline
           disablePictureInPicture
           poster={props?.thumbnail}
           controlsList="nodownload nofullscreen"
