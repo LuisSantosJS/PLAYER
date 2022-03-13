@@ -289,7 +289,7 @@ const Player: React.FC<PlayerProps> = (props) => {
           poster={props?.thumbnail}
           controlsList="nodownload nofullscreen"
         >
-          <source src={props.src} type="video/mp4"></source>
+          <source onLoad={initializeVideo} src={props.src} type="video/mp4"></source>
         </video>
         <div className={textClassName[currentCount]}>
           {props?.textAdvertisement || "Advertisement"}
