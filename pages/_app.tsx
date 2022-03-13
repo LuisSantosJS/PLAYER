@@ -10,9 +10,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <title>Player de Vídeo</title>
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
-        <Script src="/scripts/script.js"></Script>
+       
       </Head>
-
+      <Script src="/scripts/script.js"></Script>
       <Component {...pageProps} />
     </>
   );

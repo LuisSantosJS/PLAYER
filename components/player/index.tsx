@@ -40,7 +40,7 @@ const Player: React.FC<PlayerProps> = (props) => {
           poster={props?.thumbnail}
           controlsList="nodownload"
         >
-          <source  autoSave="true"   src={props.src} type="video/mp4"></source>
+          <source   src={props.src} type="video/mp4"></source>
         </video>
         <div className={textClassName[currentCount]}>
           {props?.textAdvertisement || "Advertisement"}
