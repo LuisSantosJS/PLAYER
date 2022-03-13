@@ -113,11 +113,6 @@ const Player: React.FC<PlayerProps> = (props) => {
     };
   }, [typeof document !== undefined]);
 
-  useEffect(() => {
-    if (typeof video !== undefined && video !== undefined) {
-      // Add eventlisteners here
-    }
-  }, [video, currentCount]);
 
   function togglePlay() {
     if (video.paused || video.ended) {
@@ -264,7 +259,16 @@ const Player: React.FC<PlayerProps> = (props) => {
   }
 
   function keyboardShortcuts(event: any) {
-    const { key } = event;
+    const { key, keyCode } = event;
+    if(keyCode == 32){
+      if (!video.paused) {
+        showControls();
+      } else {
+        hideControls();
+      }
+      togglePlay();
+
+    }
     switch (key) {
       case "k":
         if (!video.paused) {
@@ -307,6 +311,7 @@ const Player: React.FC<PlayerProps> = (props) => {
           preload="metadata"
           controls={false}
           webkit-playsInline
+          autoPlay
           loop
           playsInline
           disablePictureInPicture
