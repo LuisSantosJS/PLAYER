@@ -36,6 +36,8 @@ const Player: React.FC<PlayerProps> = (props) => {
   let videoContainer: any;
   let pipButton: any;
 
+  const [pause, setPause] = useState<boolean>(false);
+
   useEffect(() => {
     const id = setInterval(timer, 3000);
     return () => clearInterval(id);
@@ -67,12 +69,7 @@ const Player: React.FC<PlayerProps> = (props) => {
         video.controls = false;
         videoControls.classList.remove("hidden");
       }
-    }
-  }, [typeof document !== undefined, currentCount]);
 
-  useEffect(() => {
-    if (typeof video !== undefined && video !== undefined) {
-      // Add eventlisteners here
       playButton.addEventListener("click", togglePlay);
       video.addEventListener("play", updatePlayButton);
       video.addEventListener("pause", updatePlayButton);
@@ -92,6 +89,33 @@ const Player: React.FC<PlayerProps> = (props) => {
       volume.addEventListener("input", updateVolume);
       volumeButton.addEventListener("click", toggleMute);
       document.addEventListener("keyup", keyboardShortcuts);
+    }
+
+    return () => {
+      playButton.removeEventListener("click", togglePlay);
+      video.removeEventListener("play", updatePlayButton);
+      video.removeEventListener("pause", updatePlayButton);
+      video.removeEventListener("loadedmetadata", initializeVideo);
+      video.removeEventListener("timeupdate", updateTimeElapsed);
+      video.removeEventListener("timeupdate", updateProgress);
+      video.removeEventListener("volumechange", updateVolumeIcon);
+      video.removeEventListener("click", togglePlay);
+      video.removeEventListener("click", animatePlayback);
+      video.removeEventListener("mouseenter", showControls);
+      video.removeEventListener("mouseleave", hideControls);
+      videoControls.removeEventListener("mouseenter", showControls);
+      videoControls.removeEventListener("mouseleave", hideControls);
+      seek.removeEventListener("mousemove", updateSeekTooltip);
+      seek.removeEventListener("input", skipAhead);
+      volume.removeEventListener("input", updateVolume);
+      volumeButton.removeEventListener("click", toggleMute);
+      document.removeEventListener("keyup", keyboardShortcuts);
+    };
+  }, [typeof document !== undefined]);
+
+  useEffect(() => {
+    if (typeof video !== undefined && video !== undefined) {
+      // Add eventlisteners here
     }
   }, [video, currentCount]);
 
@@ -243,15 +267,13 @@ const Player: React.FC<PlayerProps> = (props) => {
     const { key } = event;
     switch (key) {
       case "k":
-        togglePlay();
-        animatePlayback();
-        if (video.paused) {
+        if (!video.paused) {
           showControls();
         } else {
-          setTimeout(() => {
-            hideControls();
-          }, 2000);
+          hideControls();
         }
+        togglePlay();
+
         break;
       case "m":
         toggleMute();
@@ -284,12 +306,14 @@ const Player: React.FC<PlayerProps> = (props) => {
           id="video"
           preload="metadata"
           controls={false}
-          webkit-playsInline playsInline
+          webkit-playsInline
+          loop
+          playsInline
           disablePictureInPicture
           poster={props?.thumbnail}
           controlsList="nodownload nofullscreen"
         >
-          <source  src={props.src} type="video/mp4"></source>
+          <source src={props.src} type="video/mp4" />
         </video>
         <div className={textClassName[currentCount]}>
           {props?.textAdvertisement || "Advertisement"}
