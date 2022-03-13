@@ -37,6 +37,7 @@ const Player: React.FC<PlayerProps> = (props) => {
           className="video"
           id="video"
           preload="metadata"
+          disablePictureInPicture
           poster={props?.thumbnail}
           controlsList="nodownload"
         >
