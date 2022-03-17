@@ -342,6 +342,9 @@ const Player: React.FC<PlayerProps> = (props) => {
         <div className={textClassName[currentCount]}>
           {props?.textAdvertisement || "Advertisement"}
         </div>
+        <div className={'advertisementleftbottomm'}>
+          <img height={70} src="/logo.png"/>
+        </div>
         <div className="video-controls hidden" id="video-controls">
           <div className="video-progress">
             <progress id="progress-bar" value="0"></progress>

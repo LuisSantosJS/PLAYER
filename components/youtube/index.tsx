@@ -205,6 +205,11 @@ const YouTubePlayer: React.FC<PlayerProps> = (props) => {
         <div className={textClassName[currentCount]}>
           {props?.textAdvertisement || "Advertisement"}
         </div>
+
+        <div className={'advertisementleftbottomm'}>
+          <img height={70} src="/logo.png"/>
+        </div>
+        
         <div onClick={changePlaying}>
           <div
             id={`youtube-player`}

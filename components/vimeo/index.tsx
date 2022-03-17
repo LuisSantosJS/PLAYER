@@ -108,7 +108,7 @@ const VimeoPlayer: React.FC<PlayerProps> = (props) => {
   const requestPictureInPicture = async () =>{
     //@ts-ignore
 
-    document.getElementById("youtube-player")[0]?.requestPictureInPicture();
+   await window?.PLAYERVIMEO?.requestPictureInPicture();
   }
 
   return (
@@ -127,6 +127,9 @@ const VimeoPlayer: React.FC<PlayerProps> = (props) => {
       >
         <div className={textClassName[currentCount]}>
           {props?.textAdvertisement || "Advertisement"}
+        </div>
+        <div className={'advertisementleftbottomm'}>
+          <img height={70} src="/logo.png"/>
         </div>
         <div onClick={changePlaying}>
           <div

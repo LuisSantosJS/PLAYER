@@ -335,6 +335,17 @@
     font-weight: 700;
     z-index: 999999999999 !important;
   }
+
+  .advertisementleftbottomm {
+    position: absolute;
+    padding: 5px 10px;
+    text-align: right;
+    left:0px;
+    bottom: 76px;
+    font-size: 14px;
+    font-weight: 700;
+    z-index: 999999999999 !important;
+  }
   
   .advertisementrighttop {
     position: absolute;
