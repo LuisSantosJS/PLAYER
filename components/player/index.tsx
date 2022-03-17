@@ -4,6 +4,7 @@ interface PlayerProps {
   src: string;
   textAdvertisement?: string;
   thumbnail?: string;
+  width: number;
 }
 const Player: React.FC<PlayerProps> = (props) => {
   const textClassName = [
@@ -35,8 +36,6 @@ const Player: React.FC<PlayerProps> = (props) => {
   let playbackAnimation: any;
   let videoContainer: any;
   let pipButton: any;
-
-  const [pause, setPause] = useState<boolean>(false);
 
   useEffect(() => {
     const id = setInterval(timer, 3000);
@@ -88,6 +87,7 @@ const Player: React.FC<PlayerProps> = (props) => {
       seek.addEventListener("input", skipAhead);
       volume.addEventListener("input", updateVolume);
       volumeButton.addEventListener("click", toggleMute);
+      pipButton.addEventListener("click", togglePip);
       document.addEventListener("keyup", keyboardShortcuts);
     }
 
@@ -110,9 +110,9 @@ const Player: React.FC<PlayerProps> = (props) => {
       volume.removeEventListener("input", updateVolume);
       volumeButton.removeEventListener("click", toggleMute);
       document.removeEventListener("keyup", keyboardShortcuts);
+      pipButton.addEventListener("click", togglePip);
     };
   }, [typeof document !== undefined]);
-
 
   function togglePlay() {
     if (video.paused || video.ended) {
@@ -129,6 +129,21 @@ const Player: React.FC<PlayerProps> = (props) => {
       playButton.setAttribute("data-title", "Play (k)");
     } else {
       playButton.setAttribute("data-title", "Pause (k)");
+    }
+  }
+
+  async function togglePip() {
+    try {
+      if (video !== document.pictureInPictureElement) {
+        pipButton.disabled = true;
+        await video.requestPictureInPicture();
+      } else {
+        await document.exitPictureInPicture();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      pipButton.disabled = false;
     }
   }
 
@@ -260,14 +275,13 @@ const Player: React.FC<PlayerProps> = (props) => {
 
   function keyboardShortcuts(event: any) {
     const { key, keyCode } = event;
-    if(keyCode == 32){
+    if (keyCode == 32) {
       if (!video.paused) {
         showControls();
       } else {
         hideControls();
       }
       togglePlay();
-
     }
     switch (key) {
       case "k":
@@ -286,7 +300,7 @@ const Player: React.FC<PlayerProps> = (props) => {
         // toggleFullScreen();
         break;
       case "p":
-        // togglePip();
+        togglePip();
         break;
     }
   }
@@ -297,7 +311,14 @@ const Player: React.FC<PlayerProps> = (props) => {
 
   return (
     <>
-      <div className="video-container" id="video-container">
+      <div
+        style={{
+          width: props?.width + "px",
+          height: props?.width / 1.77 + "px",
+        }}
+        className="video-container"
+        id="video-container"
+      >
         <div className="playback-animation" id="playback-animation">
           <svg className="playback-icons">
             <use className="hidden" href="#play-icon"></use>
@@ -310,11 +331,9 @@ const Player: React.FC<PlayerProps> = (props) => {
           id="video"
           preload="metadata"
           controls={false}
-          webkit-playsInline
           autoPlay
           loop
           playsInline
-          disablePictureInPicture
           poster={props?.thumbnail}
           controlsList="nodownload nofullscreen"
         >
@@ -378,6 +397,17 @@ const Player: React.FC<PlayerProps> = (props) => {
                 <time id="duration">00:00</time>
               </div>
             </div>
+            <div className="right-controls">
+              <button
+                data-title="PIP (p)"
+                className="pip-button"
+                id="pip-button"
+              >
+                <svg>
+                  <use href="#pip"></use>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -402,6 +432,10 @@ const Player: React.FC<PlayerProps> = (props) => {
 
           <symbol id="volume-mute" viewBox="0 0 24 24">
             <path d="M12 3.984v4.219l-2.109-2.109zM4.266 3l16.734 16.734-1.266 1.266-2.063-2.063q-1.547 1.313-3.656 1.828v-2.063q1.172-0.328 2.25-1.172l-4.266-4.266v6.75l-5.016-5.016h-3.984v-6h4.734l-4.734-4.734zM18.984 12q0-2.391-1.383-4.219t-3.586-2.484v-2.063q3.047 0.656 5.016 3.117t1.969 5.648q0 2.203-1.031 4.172l-1.5-1.547q0.516-1.266 0.516-2.625zM16.5 12q0 0.422-0.047 0.609l-2.438-2.438v-2.203q1.031 0.516 1.758 1.688t0.727 2.344z"></path>
+          </symbol>
+
+          <symbol id="pip" viewBox="0 0 24 24">
+            <path d="M21 19.031v-14.063h-18v14.063h18zM23.016 18.984q0 0.797-0.609 1.406t-1.406 0.609h-18q-0.797 0-1.406-0.609t-0.609-1.406v-14.016q0-0.797 0.609-1.383t1.406-0.586h18q0.797 0 1.406 0.586t0.609 1.383v14.016zM18.984 11.016v6h-7.969v-6h7.969z"></path>
           </symbol>
         </defs>
       </svg>

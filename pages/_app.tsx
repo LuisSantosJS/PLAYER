@@ -9,10 +9,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
       <title>Player de Vídeo</title>
         <meta name="description" content="" />
+        
         <link rel="icon" href="/favicon.ico" />
-       
       </Head>
-    
+      <Script strategy="beforeInteractive" src='https://meet.jit.si/external_api.js'/>
       <Component {...pageProps} />
     </>
   );
